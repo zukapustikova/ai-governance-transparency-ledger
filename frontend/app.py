@@ -5,7 +5,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 import secrets
 
-API_BASE_URL = "http://localhost:8000"
+API_BASE_URL =  API_BASE_URL = "https://ai-governance-transparency-ledger.onrender.com"
 
 # Initialize session state
 if 'page' not in st.session_state:
