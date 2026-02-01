@@ -1,0 +1,135 @@
+{
+  "concerns": {
+    "f9143a32acbf09f6": {
+      "id": "f9143a32acbf09f6",
+      "category": "safety_eval",
+      "title": "Safety evaluation skipped for bioweapon capability",
+      "description": "The CBRN safety evaluation was marked as passed but I observed that the full test suite was not run. Only 20% of test cases were executed before the team lead marked it complete.",
+      "submitter_id": "anon_7f3a2b1c9d8e",
+      "submitter_role": "whistleblower",
+      "status": "resolved",
+      "evidence_hash": null,
+      "deployment_id": "gpt-safe-v2.1-prod",
+      "model_id": "gpt-safe-v2.1",
+      "timestamp": "2026-02-01T15:32:06.604083",
+      "hash": "2cab1a74e781305434bd9dcf30e42c19935a240cd68ec2288fdacaf633692be0"
+    },
+    "38c071af1ca2f4a5": {
+      "id": "38c071af1ca2f4a5",
+      "category": "documentation",
+      "title": "Model card incomplete for deployment",
+      "description": "We identified that the model card is missing capability descriptions for code generation. Updating before full rollout.",
+      "submitter_id": "Anthropic Safety Team",
+      "submitter_role": "lab",
+      "status": "resolved",
+      "evidence_hash": null,
+      "deployment_id": "gpt-safe-v2.1-prod",
+      "model_id": "gpt-safe-v2.1",
+      "timestamp": "2026-02-01T15:32:06.604686",
+      "hash": "5168eb0a3770c9fb95c236f4169068417759c56860a959e7ec71053225b5e72b"
+    }
+  },
+  "responses": {
+    "0842581e3dba7cf0": {
+      "id": "0842581e3dba7cf0",
+      "concern_id": "f9143a32acbf09f6",
+      "response_text": "We have reviewed the logs and confirm that the CBRN evaluation was interrupted due to infrastructure issues. We have now completed the full evaluation suite. See evidence hash for logs.",
+      "responder_id": "Anthropic Safety Team",
+      "responder_role": "lab",
+      "evidence_hash": "a1b2c3d4e5f6789...",
+      "timestamp": "2026-02-01T15:32:06.605105",
+      "hash": "98f3863df40a7f9a4a30d9ab9b14246cfe9d0a3366892f7f9eedbf3ea4424208"
+    }
+  },
+  "resolutions": {
+    "0b7cd3057aa2effd": {
+      "id": "0b7cd3057aa2effd",
+      "concern_id": "f9143a32acbf09f6",
+      "resolution_notes": "Verified lab's response. Full CBRN evaluation suite has now been completed and logs confirm all test cases passed. Concern resolved.",
+      "auditor_id": "AI Safety Institute",
+      "timestamp": "2026-02-01T15:32:06.605456",
+      "hash": "8baba7ace753b39361c34e340b0c186962ab3d93b8d983592ad5d35ef9d44f9c"
+    },
+    "588d4354a33e10e4": {
+      "id": "588d4354a33e10e4",
+      "concern_id": "38c071af1ca2f4a5",
+      "resolution_notes": "Verified that model card has been updated with complete capability documentation. Meets requirements.",
+      "auditor_id": "AI Safety Institute",
+      "timestamp": "2026-02-01T15:32:06.605849",
+      "hash": "f5b4f8ab4394bb6208a75581301f81bfdb1adea8a0164aa5eb14de6093fe8173"
+    }
+  },
+  "compliance_submissions": {
+    "9eaf40b45202ae72": {
+      "id": "9eaf40b45202ae72",
+      "template_type": "safety_evaluation",
+      "deployment_id": "gpt-safe-v2.1-prod",
+      "model_id": "gpt-safe-v2.1",
+      "lab_id": "Anthropic",
+      "title": "Pre-deployment Safety Evaluation Report",
+      "summary": "Comprehensive safety evaluation covering harmlessness, helpfulness, and honesty benchmarks. All tests passed with scores above required thresholds.",
+      "evidence_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "metadata": {
+        "eval_suite": "safety-benchmark-v4",
+        "harmlessness_score": 0.98,
+        "helpfulness_score": 0.94,
+        "honesty_score": 0.96,
+        "test_cases": 15000
+      },
+      "status": "verified",
+      "submitted_at": "2026-02-01T15:32:06.608512",
+      "reviewed_at": "2026-02-01T15:32:06.608926",
+      "reviewed_by": "AI Safety Institute",
+      "review_notes": "Evidence verified. Safety evaluation meets all requirements.",
+      "hash": "98fbf822a328b9b061d25b414560a459dfdaca8b46cc60d7ca6b3d32477db190",
+      "evidence_verified": true
+    },
+    "7ab988bda86d1d09": {
+      "id": "7ab988bda86d1d09",
+      "template_type": "capability_assessment",
+      "deployment_id": "gpt-safe-v2.1-prod",
+      "model_id": "gpt-safe-v2.1",
+      "lab_id": "Anthropic",
+      "title": "Dangerous Capability Assessment",
+      "summary": "Assessment of CBRN, cyber, and persuasion capabilities. Model shows minimal dangerous capabilities with appropriate refusal behaviors for harmful requests.",
+      "evidence_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "metadata": {
+        "cbrn_risk": "minimal",
+        "cyber_risk": "minimal",
+        "persuasion_risk": "low",
+        "refusal_rate": 0.99
+      },
+      "status": "verified",
+      "submitted_at": "2026-02-01T15:32:06.609323",
+      "reviewed_at": "2026-02-01T15:32:06.609874",
+      "reviewed_by": "AI Safety Institute",
+      "review_notes": "Capability assessment verified. Risk levels acceptable.",
+      "hash": "d588201b12452ecdf56fe89cb7dc27caa8ac2c51f8f2a9a7d5aa3a641fdada5e",
+      "evidence_verified": true
+    },
+    "fa28a9396ff46a31": {
+      "id": "fa28a9396ff46a31",
+      "template_type": "red_team_report",
+      "deployment_id": "gpt-safe-v2.1-prod",
+      "model_id": "gpt-safe-v2.1",
+      "lab_id": "Anthropic",
+      "title": "Red Team Testing Report",
+      "summary": "Comprehensive red team testing conducted by external security researchers. No critical vulnerabilities found. Minor issues identified and mitigated before deployment.",
+      "evidence_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "metadata": {
+        "testers": 12,
+        "test_hours": 500,
+        "critical_findings": 0,
+        "medium_findings": 2,
+        "findings_mitigated": true
+      },
+      "status": "verified",
+      "submitted_at": "2026-02-01T15:32:06.610579",
+      "reviewed_at": "2026-02-01T15:32:06.611017",
+      "reviewed_by": "AI Safety Institute",
+      "review_notes": "Red team report verified. All findings addressed appropriately.",
+      "hash": "3c6b437f50ebe5409284c62c4293949fea79ba765ed829a58c27c97cd15aee7a",
+      "evidence_verified": true
+    }
+  }
+}

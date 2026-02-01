@@ -1,0 +1,20 @@
+{
+  "parties": [
+    {
+      "party_id": "party_b0d01d928e2ce718",
+      "name": "Lab 1",
+      "role": "lab",
+      "api_key_hash": "0c298820e45e31b090a4c76255f14a62a87fde96ebc42ef9c34ca5e8dbba8b80",
+      "created_at": "2026-02-01T12:19:44.739887",
+      "is_active": true
+    },
+    {
+      "party_id": "party_097f3bcc0dab0453",
+      "name": "Auditor 1",
+      "role": "auditor",
+      "api_key_hash": "7907ee18bebe0fca2593a30ded65ec35ec9304cc9542831c7dfe5b305b63eae4",
+      "created_at": "2026-02-01T12:19:44.740187",
+      "is_active": true
+    }
+  ]
+}

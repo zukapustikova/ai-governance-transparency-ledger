@@ -1,0 +1,375 @@
+# AI Governance Transparency Ledger - Architecture Decisions
+
+## Overview
+
+A shared, tamper-proof ledger where frontier AI labs submit required compliance documentation and anyone can raise concerns - with deployment blocked until both compliance is complete AND all concerns are resolved.
+
+**Visibility Model:** Full ledger access is restricted to relevant parties (labs, auditors, government).
+
+---
+
+## Question 1: Who Runs the System?
+
+### Decision: Multiple Mirrors Across Relevant Parties
+
+| Aspect | Detail |
+|--------|--------|
+| Architecture | Labs + Auditors + Government all hold copies |
+| No single point of control | Any party can verify, no one can suppress |
+| Tamper detection | If copies don't match, tampering detected |
+
+### Reasoning
+- If a lab runs it alone, they control the data (defeats purpose)
+- If one regulator runs it, single point of failure/bias
+- Multiple mirrors = redundancy + accountability
+- Restricted to relevant parties (labs, auditors, government) because content is technical
+- Fits hackathon theme: "verification between parties without full trust"
+
+### Pitch Paragraph
+> "The ledger is mirrored across relevant parties - labs, auditors, and government regulators. No single entity controls the data. If any party attempts to suppress or alter a submission, the discrepancy is immediately detectable by comparing copies. This creates verification infrastructure that works between parties who don't fully trust each other."
+
+---
+
+## Question 2: What Enforces Compliance?
+
+### Decision: Infrastructure + Regulatory Oversight + Government Adoption
+
+| Aspect | Detail |
+|--------|--------|
+| What we build | Technical infrastructure + deployment gate + shared ledger |
+| What creates pressure | Regulatory oversight from auditors and government |
+| What enforces | Government/regulatory adoption of this infrastructure |
+
+### Reasoning
+- Technical systems can create gates, but can't force compliance
+- Enforcement is a policy/legal problem, not a technical one
+- We build the traffic light; governments provide traffic laws + police
+- Auditors and government are the accountability mechanism
+
+### Pitch Paragraph
+> "We provide the technical infrastructure that makes AI governance enforceable. The system creates tamper-proof records of compliance status shared between labs, auditors, and government. Actual enforcement requires regulatory adoption: the EU AI Act, national AI safety frameworks, or international agreements could mandate use of this infrastructure. We build the verification layer; governments provide the mandate."
+
+---
+
+## Question 3: How Do We Know Submissions Are True?
+
+### Decision: Evidence Hash Commitments + Auditor Verification + Whistleblower Challenges
+
+| Aspect | Detail |
+|--------|--------|
+| Evidence commitments | Labs must include hash of actual evidence (test logs, results) |
+| Tamper-proof timeline | Claims are locked in chain, can't be changed later |
+| Auditor verification | Human reviews evidence, confirms it matches hash |
+| Whistleblower challenges | Anyone can dispute false claims |
+
+### Reasoning
+- We can't automate truth verification
+- But we can create conditions where lying is risky and detectable
+- Hash commitment = cryptographic promise that can be checked later
+- If lab submits fake hash, they're caught when evidence doesn't match
+- Whistleblowers who know the truth can trigger investigations
+
+### Pitch Paragraph
+> "The system cannot automatically verify truth, but it creates cryptographic accountability. Labs must commit to evidence hashes when submitting compliance claims - locking in what their evidence is. Auditors can later request the actual evidence and verify it matches the committed hash. If it doesn't match, the lab is caught. Combined with whistleblower challenges from people who know the truth, this creates an environment where false claims are risky and detectable."
+
+---
+
+## Question 4: Who Is the Auditor?
+
+### Decision: Flexible Role, Intended for Jurisdiction-Based Regulators
+
+| Aspect | Detail |
+|--------|--------|
+| Architecture | "Auditor" is a role in the system, not a specific entity |
+| Intended use | Jurisdiction-based regulators (EU AI Office, national safety institutes) |
+| Flexibility | System supports any auditor model |
+
+### Reasoning
+- Different jurisdictions will have different regulatory bodies
+- We shouldn't hardcode a specific entity
+- The architecture should be adaptable
+- For demo, we simulate "AI Safety Institute" as example
+
+### Pitch Paragraph
+> "The auditor is a role, not a hardcoded entity. The system supports any auditor model - a single international body, jurisdiction-based regulators, or multiple approved auditors. In practice, we envision national AI safety institutes and regulatory bodies (like the EU AI Office) serving as auditors, potentially with mutual recognition agreements for cross-border operations. The architecture is deliberately flexible to support evolving governance structures."
+
+---
+
+## Question 5: How Is Whistleblower Identity Protected?
+
+### Decision: Strong Anonymity by Design - Identity Never Enters System
+
+| Aspect | Detail |
+|--------|--------|
+| Anonymous ID | Generated client-side from identity + secret salt |
+| What's submitted | Only anonymous ID + content (real identity never sent) |
+| What's stored | Only anonymous ID + content |
+| Backdoor | None - system literally cannot reveal identity |
+
+### Reasoning
+- If real identity never enters the system, it can't be leaked from the system
+- No key escrow = no target for "decrypt or else" pressure
+- No trust required in auditor to "promise not to look"
+- Privacy by architecture, not by policy
+
+### Pitch Paragraph
+> "Whistleblower identities are protected by design - real identities never enter the system. Anonymous IDs are generated client-side by hashing the identity with a secret salt known only to the whistleblower. Only the anonymous ID and content are transmitted and stored. There is no backdoor, no key escrow, no way to trace submissions back to individuals. The system cannot reveal what it never had. This is privacy by architecture, not by policy promise."
+
+---
+
+## Question 6: Who Can See the Ledger Contents?
+
+### Decision: Restricted to Relevant Parties Only
+
+| Aspect | Detail |
+|--------|--------|
+| Full access | Labs, Auditors, Government |
+| No public access | Content is technical and requires expertise to act on |
+
+### What Each Party Sees
+
+**Labs, Auditors, Government (all see everything):**
+- All compliance submissions with technical details
+- Evidence hash commitments
+- Whistleblower concerns (content, not identity)
+- Auditor responses and resolutions
+- Full deployment gate status
+
+### Reasoning
+- Content is highly technical - requires expertise to understand and act on
+- Relevant parties (auditors, government) are the ones who can actually investigate and enforce
+- Mirrors existing regulatory models (financial audits aren't fully public either)
+- Labs more likely to engage honestly
+- Keeps scope focused on the core verification mechanism
+
+### Pitch Paragraph
+> "Ledger contents are restricted to relevant parties: labs submitting compliance documentation, auditors reviewing it, and government regulators who can enforce. This keeps technical details with people who can understand and act on them - similar to how financial audits work. The core value is mutual verification between parties who don't fully trust each other."
+
+---
+
+## Combined Hackathon Pitch
+
+### One-Liner
+> "A shared transparency ledger for AI governance where labs submit required compliance documentation, anyone can raise concerns anonymously, and deployment is blocked until all requirements are met and all concerns are resolved."
+
+### Full Pitch (For Submission)
+
+> **Problem:** Frontier AI labs need to demonstrate compliance with safety requirements, but current systems are either (a) self-reported with no verification, or (b) require exposing sensitive operational details. Meanwhile, internal safety researchers who see problems have no protected channel to raise concerns.
+>
+> **Solution:** The AI Governance Transparency Ledger - a shared, tamper-proof system where:
+>
+> 1. **Labs submit required compliance documentation** using standardized templates based on regulations (EU AI Act, frontier lab policies). Each submission includes a cryptographic hash of the underlying evidence, creating a verifiable commitment.
+>
+> 2. **Whistleblowers can raise concerns anonymously** about any submission or practice. Identities never enter the system - anonymous IDs are generated client-side. Submitters are protected by architecture, not policy.
+>
+> 3. **Full details visible to relevant parties** (labs, auditors, government) - creating accountability through regulatory oversight.
+>
+> 4. **Deployment is gated** until all required submissions are complete AND all concerns are resolved by auditors.
+>
+> 5. **The ledger is mirrored** across labs, auditors, and government - no single party can suppress or alter records.
+>
+> **Enforcement:** This is the technical infrastructure that makes AI governance regulations enforceable. We build the verification layer; governments provide the mandate through regulatory adoption.
+>
+> **Key Innovation:** Whistleblower-aware governance infrastructure with mutual verification between labs, auditors, and government - creating accountability while protecting reporter identities by design.
+
+---
+
+## Architecture Diagram
+
+```
++---------------------------------------------------------------------+
+|              AI GOVERNANCE TRANSPARENCY LEDGER                       |
+|                                                                      |
+|    SHARED BY: LABS | AUDITORS | GOVERNMENT                          |
+|    (Mirrored - no single point of control - tampering detected)     |
++---------------------------------------------------------------------+
+|                                                                      |
+|  +-------------------------------------------------------------+   |
+|  |  COMPLIANCE SUBMISSIONS (from labs)                          |   |
+|  |                                                              |   |
+|  |  * Templates based on regulations (EU AI Act, ASL, etc.)    |   |
+|  |  * Evidence hash commitments (verifiable later)              |   |
+|  |  * Auditor reviews and marks verified                        |   |
+|  +-------------------------------------------------------------+   |
+|                                                                      |
+|  +-------------------------------------------------------------+   |
+|  |  WHISTLEBLOWER CONCERNS (from anyone)                        |   |
+|  |                                                              |   |
+|  |  * Anonymous by design (identity never enters system)        |   |
+|  |  * Visible to all parties (labs, auditors, government)       |   |
+|  |  * Can challenge any false compliance claim                  |   |
+|  +-------------------------------------------------------------+   |
+|                                                                      |
+|  +-------------------------------------------------------------+   |
+|  |  DEPLOYMENT GATE                                             |   |
+|  |                                                              |   |
+|  |  Status: BLOCKED                                             |   |
+|  |  * Missing: Capability Assessment template                   |   |
+|  |  * Unresolved: 1 whistleblower concern                       |   |
+|  +-------------------------------------------------------------+   |
+|                                                                      |
++---------------------------------------------------------------------+
+|  ENFORCEMENT: Government adoption of this infrastructure            |
+|  AUDITORS: Jurisdiction-based regulators (flexible role)            |
+|  TRUTH: Evidence commitments + auditor verification + challenges    |
++---------------------------------------------------------------------+
+```
+
+---
+
+## Technical Foundation (From AI Flight Recorder)
+
+The system builds on proven cryptographic primitives:
+
+1. **Hash Chains** - Each submission is cryptographically linked to the previous one. Any tampering breaks the chain and is immediately detectable.
+
+2. **Evidence Hash Commitments** - Labs commit to their evidence by including its hash. Later, auditors can verify the actual evidence matches the commitment.
+
+3. **Merkle Proofs** - Can prove a specific submission exists without revealing all submissions. Useful for selective disclosure.
+
+4. **Anonymous ID Generation** - Client-side hashing of identity + salt creates consistent pseudonymous identities that can't be reversed.
+
+---
+
+## Test Coverage
+
+- 93 passing tests covering:
+  - Hash chain integrity
+  - Merkle proof generation/verification
+  - ZK proof generation/verification
+  - Transparency ledger operations
+  - Anonymous identity generation
+  - Concern/response/resolution workflow
+  - Deployment clearance logic
+
+---
+
+## Files Structure
+
+```
+ai-flight-recorder/
+├── backend/
+│   ├── api.py              # FastAPI REST endpoints
+│   ├── audit_log.py        # Hash chain implementation
+│   ├── crypto_utils.py     # SHA-256 utilities + anonymous ID
+│   ├── merkle_tree.py      # Merkle tree & proofs
+│   ├── models.py           # Pydantic data models
+│   ├── transparency.py     # Shared transparency ledger
+│   └── zk_proofs.py        # Zero-knowledge proofs
+├── frontend/
+│   └── app.py              # Streamlit dashboard
+├── tests/
+│   ├── test_audit_log.py
+│   ├── test_crypto.py
+│   ├── test_merkle.py
+│   ├── test_transparency.py
+│   └── test_zk_proofs.py
+└── ARCHITECTURE_DECISIONS.txt  # This file
+```
+
+---
+
+## Additional Features (Nice-to-Have Implementations)
+
+### Feature: Multi-Mirror Simulation Demo
+
+**Purpose:** Demonstrate how ledger mirroring works across multiple parties with tamper detection.
+
+**Note:** This is an in-memory demo feature. Mirror data is not persisted to disk
+and will be lost on server restart. For production, each party would maintain
+their own persistent copy with a distributed consensus mechanism.
+
+**Implementation:**
+- `backend/mirror_simulation.py` contains the `MirrorSimulation` class
+- Simulates 3 independent copies: Lab, Auditor, Government
+- Each mirror stores a deep copy of ledger records
+- Content hash computed from all records for comparison
+
+**How It Works:**
+1. **Sync:** All mirrors receive identical copies from authoritative ledger
+2. **Compare:** Hash comparison detects if any mirror diverges
+3. **Tamper:** Demo endpoint allows modifying one party's copy
+4. **Detect:** Identifies which parties have divergent data and which records differ
+
+**API Endpoints:**
+- `POST /demo/mirror/sync` - Sync all mirrors from ledger
+- `GET /demo/mirror/status` - Get status of all 3 mirrors
+- `GET /demo/mirror/compare` - Compare mirrors, detect divergence
+- `POST /demo/mirror/tamper` - Tamper with one party's copy (demo)
+- `GET /demo/mirror/detect` - Run full tamper detection
+- `POST /demo/mirror/reset` - Reset simulation
+
+**Frontend:** Mirror Demo page with three-column layout showing each party's mirror status, comparison results, and demo controls.
+
+---
+
+### Feature: Role-Based Authentication
+
+**Purpose:** Protect sensitive endpoints with API key authentication and role enforcement.
+
+**Note:** The `/auth/register` endpoint is unprotected for demo purposes. In production,
+party registration should require admin authentication or be handled through a
+separate secure onboarding process.
+
+**Implementation:**
+- `backend/auth.py` contains `AuthStore` class and FastAPI dependencies
+- API keys stored as SHA-256 hashes (never plain text)
+- Plain API key returned only once at registration
+
+**Roles:**
+- `lab` - Can submit compliance documentation and respond to concerns
+- `auditor` - Can review submissions and resolve concerns
+- `government` - Can view all data for oversight
+
+**Protected Endpoints (when X-API-Key header provided):**
+- `POST /transparency/resolutions` - Auditor only
+- `POST /compliance/review` - Auditor only
+- `POST /compliance/submissions` - Lab only
+- `POST /transparency/responses` (as lab) - Lab only
+
+**API Endpoints:**
+- `POST /auth/register` - Register new party, returns API key once
+- `GET /auth/parties` - List all registered parties
+- `DELETE /auth/parties/{party_id}` - Revoke access
+- `GET /auth/me` - Get current authenticated party info
+
+**Frontend:** API key input in sidebar with authentication status display.
+
+**Note:** Authentication is optional for backward compatibility. Endpoints work without API key but validate role if key is provided.
+
+---
+
+### Feature: Client-Side Anonymous ID Generation
+
+**Purpose:** Maximum privacy - identity never leaves the user's browser.
+
+**Implementation:**
+- JavaScript using Web Crypto API embedded via `streamlit.components.v1.html`
+- SHA-256 hashing done entirely in browser
+- User copies generated ID to paste into forms
+
+**Algorithm:**
+```
+anonymous_id = "anon_" + SHA256(identity + "||" + salt).substring(0, 12)
+```
+
+**How It Works:**
+1. User enters identity (e.g., email) and secret passphrase
+2. JavaScript computes hash locally using `crypto.subtle.digest`
+3. User copies the generated `anon_xxxxxxxxxxxx` ID
+4. User pastes ID to use in concern submissions
+
+**Server Endpoint Deprecation:**
+- `POST /transparency/anonymous-id` marked as `deprecated=True`
+- Warning message explains privacy implications
+- Kept for API clients that can't do client-side hashing
+
+**Why Client-Side:**
+- Server-side hashing requires sending identity to server
+- Even if not stored, identity touches server infrastructure
+- Client-side = identity never leaves browser = maximum privacy
+- Matches the "privacy by architecture" principle
+
+---
+
+Ready to build the unified system based on these decisions.
